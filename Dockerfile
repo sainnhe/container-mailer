@@ -1,10 +1,13 @@
 FROM alpine:latest
 
-RUN apk add --no-cache cargo pkgconf openssl-dev
+COPY . /tmp
 
-RUN cargo build --release \
+RUN cd /tmp \
+    && apk add --no-cache cargo pkgconf openssl-dev \
+    && cargo build --release \
     && apk del cargo pkgconf openssl-dev \
     && apk add --no-cache libssl3 libcrypto3 libgcc \
-    && cp ./target/release/mailer /usr/local/bin/
+    && cp ./target/release/mailer /usr/local/bin/ \
+    && rm -rf /tmp/* /root/.cargo
 
 CMD [ "mailer" ]
