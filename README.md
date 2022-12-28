@@ -1,0 +1,50 @@
+## Introduction
+
+This is a simple container image to send emails via SMTP.
+
+It is very small, only 8.69MB in x86_64 architecture, thus is very suitable for use in CI.
+
+Example usage:
+
+```bash
+docker run --name mailer --rm \
+    -e MAILER_FROM_ADDRESS="user@example.com" \
+    -e MAILER_FROM_NAME="Your Name" \
+    -e MAILER_RECIPIENTS="foo@gmail.com,bar@outlook.com" \
+    -e MAILER_SUBJECT="Hello!" \
+    -e MAILER_BODY="This is\nthe body." \
+    -e MAILER_ATTACHMENT_PATH="/path/to/file" \
+    -e MAILER_ATTACHMENT_TYPE="text/plain" \
+    -e MAILER_USER_NAME="user@example.com" \
+    -e MAILER_PASSWORD="password" \
+    -e MAILER_HOST="smtp.example.com" \
+    -e MAILER_PORT="465" \
+    -e MAILER_USE_STARTTLS="false" \
+    sainnhe/mailer:latest
+```
+
+The executable is placed in `/usr/local/bin/mailer`, you can manually run it in a container.
+
+This image is available in the following registries:
+
+- `docker.io`
+- `ghcr.io`
+
+## Environment Variables
+
+- `MAILER_FROM_ADDRESS`: Send email from this address.
+- `MAILER_FROM_NAME`: The name of the sender.
+- `MAILER_RECIPIENTS`: Comma separated list of recipients to send the mail to.
+- `MAILER_SUBJECT`: The subject.
+- `MAILER_BODY`: The body. Use `\n` to break new line.
+- `MAILER_ATTACHMENT_PATH` (optional): Attachment file path.
+- `MAILER_ATTACHMENT_TYPE` (optional): Attachment file type. One of media types in [https://www.iana.org/assignments/media-types/media-types.xhtml](https://www.iana.org/assignments/media-types/media-types.xhtml).
+- `MAILER_USER_NAME`: SMTP user name.
+- `MAILER_PASSWORD`: SMTP password.
+- `MAILER_HOST`: SMTP host.
+- `MAILER_PORT`: SMTP port.
+- `MAILER_USE_STARTTLS`: If set to `"false"`, use TLS. If set to `"true"`, use STARTTLS.
+
+## License
+
+[GPL3](./LICENSE) © sainnhe
