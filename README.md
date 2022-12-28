@@ -4,7 +4,7 @@ This is a simple container image to send emails via SMTP.
 
 It is very small, the compressed size is only 3.92MB in x86_64 architecture, thus is very suitable for use in CI.
 
-Example usage:
+You can use it like this:
 
 ```bash
 docker run --name mailer --rm \
