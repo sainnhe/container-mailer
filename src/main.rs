@@ -12,6 +12,7 @@ struct Config {
     user_name: String,
     password: String,
     host: String,
+    port: String,
     use_starttls: String,
     attachment_path: String,
     attachment_type: String,
@@ -30,6 +31,7 @@ fn main() {
         user_name: env::var("MAILER_USER_NAME").unwrap_or(String::from("")),
         password: env::var("MAILER_PASSWORD").unwrap_or(String::from("")),
         host: env::var("MAILER_HOST").unwrap_or(String::from("")),
+        port: env::var("MAILER_PORT").unwrap_or(String::from("465")),
         use_starttls: env::var("MAILER_USE_STARTTLS").unwrap_or(String::from("false")),
     };
 
@@ -71,6 +73,7 @@ fn main() {
         match SmtpTransport::starttls_relay(config.host.as_str())
             .unwrap()
             .credentials(Credentials::new(config.user_name, config.password))
+            .port(config.port.parse::<u16>().unwrap())
             .build()
             .send(&msg)
         {
@@ -81,6 +84,7 @@ fn main() {
         match SmtpTransport::relay(config.host.as_str())
             .unwrap()
             .credentials(Credentials::new(config.user_name, config.password))
+            .port(config.port.parse::<u16>().unwrap())
             .build()
             .send(&msg)
         {
