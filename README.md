@@ -2,7 +2,7 @@
 
 This is a simple container image to send emails via SMTP.
 
-It is very small, only 8.69MB in x86_64 architecture, thus is very suitable for use in CI.
+It is very small, the compressed size is only 3.92MB in x86_64 architecture, thus is very suitable for use in CI.
 
 Example usage:
 
@@ -28,8 +28,8 @@ The executable is placed in `/usr/local/bin/mailer`, you can manually run it in 
 
 This image is available in the following registries:
 
-- `docker.io`
-- `ghcr.io`
+- [`docker.io`](https://hub.docker.com/r/sainnhe/mailer)
+- [`ghcr.io`](https://github.com/sainnhe/container-mailer/pkgs/container/mailer)
 
 ## Environment Variables
 
