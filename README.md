@@ -47,6 +47,41 @@ This image is available in the following registries:
 - `MAILER_PORT`: SMTP port.
 - `MAILER_USE_STARTTLS`: If set to `"false"`, use TLS. If set to `"true"`, use STARTTLS.
 
+## Example
+
+Here is an example of using this image in [Woodpecker CI](https://woodpecker-ci.org):
+
+```yaml
+branches: master
+
+pipeline:
+  test:
+    image: <your-image>
+    commands:
+      - <your-test-commands>
+  notify:
+    image: docker.io/sainnhe/mailer:latest
+    commands:
+      - mailer
+    secrets:
+      [
+        MAILER_FROM_ADDRESS,
+        MAILER_FROM_NAME,
+        MAILER_RECIPIENTS,
+        MAILER_USER_NAME,
+        MAILER_PASSWORD,
+        MAILER_HOST,
+        MAILER_PORT,
+        MAILER_USE_STARTTLS,
+      ]
+    environment:
+      - MAILER_SUBJECT=Run Failed
+      - MAILER_BODY=${CI_BUILD_LINK}
+    when:
+      status:
+        - failure
+```
+
 ## License
 
 [GPL3](./LICENSE) © sainnhe
