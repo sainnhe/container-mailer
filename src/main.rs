@@ -9,6 +9,7 @@ struct Config {
     recipients: String,
     subject: String,
     body: String,
+    body_is_html: String,
     user_name: String,
     password: String,
     host: String,
@@ -26,6 +27,7 @@ fn main() {
         recipients: env::var("MAILER_RECIPIENTS").unwrap_or(String::from("")),
         subject: env::var("MAILER_SUBJECT").unwrap_or(String::from("")),
         body: env::var("MAILER_BODY").unwrap_or(String::from("")),
+        body_is_html: env::var("MAILER_BODY_IS_HTML").unwrap_or(String::from("false")),
         attachment_path: env::var("MAILER_ATTACHMENT_PATH").unwrap_or(String::from("")),
         attachment_type: env::var("MAILER_ATTACHMENT_TYPE").unwrap_or(String::from("text/plain")),
         user_name: env::var("MAILER_USER_NAME").unwrap_or(String::from("")),
@@ -46,10 +48,18 @@ fn main() {
     for recipient in config.recipients.split(',') {
         msg_builder = msg_builder.to(format!("<{}>", recipient).parse().unwrap());
     }
+    // Add body
+    let mut body: MultiPart;
+    if config.body_is_html == "true" {
+        body = MultiPart::mixed().singlepart(SinglePart::html(
+            config.body.replace("\\n", "\n").replace("\\t", "\t"),
+        ));
+    } else {
+        body = MultiPart::mixed().singlepart(SinglePart::plain(
+            config.body.replace("\\n", "\n").replace("\\t", "\t"),
+        ));
+    }
     // Attach files
-    let mut body = MultiPart::mixed().singlepart(SinglePart::plain(
-        config.body.replace("\\n", "\n").replace("\\t", "\t"),
-    ));
     if !config.attachment_path.is_empty() {
         body = body.singlepart(
             Attachment::new(String::from(

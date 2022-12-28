@@ -13,6 +13,7 @@ docker run --name mailer --rm \
     -e MAILER_RECIPIENTS="foo@gmail.com,bar@outlook.com" \
     -e MAILER_SUBJECT="Hello!" \
     -e MAILER_BODY="This is\nthe body." \
+    -e MAILER_BODY_IS_HTML="false" \
     -e MAILER_ATTACHMENT_PATH="/path/to/file" \
     -e MAILER_ATTACHMENT_TYPE="text/plain" \
     -e MAILER_USER_NAME="user@example.com" \
@@ -37,8 +38,9 @@ This image is available in the following registries:
 - `MAILER_RECIPIENTS`: Comma separated list of recipients to send the mail to.
 - `MAILER_SUBJECT`: The subject.
 - `MAILER_BODY`: The body. Use `\n` to break new line.
-- `MAILER_ATTACHMENT_PATH` (optional): Attachment file path.
-- `MAILER_ATTACHMENT_TYPE` (optional): Attachment file type. One of media types in [https://www.iana.org/assignments/media-types/media-types.xhtml](https://www.iana.org/assignments/media-types/media-types.xhtml).
+- `MAILER_BODY_IS_HTML` (optional): If set to `"true"`, `MAILER_BODY` is rendered in HTML. If set to `"false"`, `MAILER_BODY` is rendered in plain text. Default to `"false"`.
+- `MAILER_ATTACHMENT_PATH` (optional): Attachment file path. Default to `""`.
+- `MAILER_ATTACHMENT_TYPE` (optional): Attachment file type. One of media types in [https://www.iana.org/assignments/media-types/media-types.xhtml](https://www.iana.org/assignments/media-types/media-types.xhtml). Default to `"text/plain"`.
 - `MAILER_USER_NAME`: SMTP user name.
 - `MAILER_PASSWORD`: SMTP password.
 - `MAILER_HOST`: SMTP host.
