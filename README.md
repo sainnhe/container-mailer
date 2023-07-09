@@ -28,8 +28,8 @@ The executable is placed in `/usr/local/bin/mailer`, you can manually run it in 
 
 This image is available in the following registries:
 
-- [`docker.io`](https://hub.docker.com/r/sainnhe/mailer)
 - [`ghcr.io`](https://github.com/sainnhe/container-mailer/pkgs/container/mailer)
+- [`quay.io`](https://quay.io/repository/sainnhe/mailer)
 
 ## Environment Variables
 
