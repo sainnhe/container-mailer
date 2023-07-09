@@ -21,7 +21,7 @@ docker run --name mailer --rm \
     -e MAILER_HOST="smtp.example.com" \
     -e MAILER_PORT="465" \
     -e MAILER_USE_STARTTLS="false" \
-    sainnhe/mailer:latest
+    ghcr.io/sainnhe/mailer:latest
 ```
 
 The executable is placed in `/usr/local/bin/mailer`, you can manually run it in a container.
@@ -60,7 +60,7 @@ pipeline:
     commands:
       - <your-test-commands>
   notify:
-    image: docker.io/sainnhe/mailer:latest
+    image: ghcr.io/sainnhe/mailer:latest
     commands:
       - mailer
     secrets:
